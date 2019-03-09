@@ -6,7 +6,7 @@ import ssl
 import sys
 
 url = 'https://api.voicetext.jp/v1/tts'
-API_KEY = 'YOUR API KEY'
+API_KEY = '6otvdxnu4z5liju0'
 
 payload = {
     'text': 'おはようございます',
@@ -17,9 +17,9 @@ s = requests.Session()
 s.mount(url, SSLAdapter(ssl.PROTOCOL_TLSv1))
 r = s.post(url, params=payload, auth=(API_KEY,''))
 
-print "status code:", r.status_code
+print("status code:", r.status_code)
 if r.status_code != 200:
-    print "error:", r.json()['error']['message']
+    print("error:", r.json()['error']['message'])
     sys.exit()
 
 f = open("test.wav", 'wb')
