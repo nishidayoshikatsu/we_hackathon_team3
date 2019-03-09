@@ -11,7 +11,7 @@ class NaturalLanguageUnderstanding():
             iam_apikey='5syXvO8kxI962t8eofpVJFp5_K5dH-3c2iqICD4z03vO',
             url='https://gateway.watsonplatform.net/natural-language-understanding/api'
         )
-    def analyze_sentence(self, sentence:str):
+    def negaposi_analyze(self, sentence:str):
         """
         sentence: 会話文
         return: list
@@ -33,7 +33,7 @@ class NaturalLanguageUnderstanding():
 
 if __name__ == "__main__":      # このファイルが直接実行されたときに以下を実行
     analyze = NaturalLanguageUnderstanding()
-    result = analyze.analyze_sentence("ムカつくムカつくムカつくムカつくイヤダイヤダいやだ")
+    result = analyze.negaposi_analyze("ムカつくムカつくムカつくムカつくイヤダイヤダいやだ")
     emotion = {"positive": 0, "negative": 0}
     for analyze_list in result:
         if analyze_list["label"] == "positive":
