@@ -5,6 +5,7 @@ import requests
 import ssl
 import sys
 import random
+import os
 import analyze_sentence as ana  #analyze_sentence.pyの読み込み
 
 class TextToSpeech:
@@ -105,7 +106,11 @@ class TextToSpeech:
             print("error:", r.json()['error']['message'])
             sys.exit()
 
-        with open('./voice/test.wav', 'wb') as f:   # wavファイルの生成
+        n = 1
+        while os.path.isfile("./voice/test" + str(n) + ".wav"):
+            n += 1
+
+        with open("./voice/test" + str(n) + ".wav", 'wb') as f:   # wavファイルの生成
             f.write(r.content)
 
 if __name__ == "__main__":      # このファイルが直接実行されたときに以下を実行
