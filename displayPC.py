@@ -22,7 +22,6 @@ class Base(tk.Frame):
         label1 = tk.Label(root)
         label1.pack()
 
-        
     def create_widgets(self):
         label = tk.Label(master=self, text="モード選択", font=(u'ＭＳ ゴシック', 40,"bold"),bg="red")
         label.pack()
@@ -44,7 +43,7 @@ class Base(tk.Frame):
 
 
         self.men_button = tk.Button(master=self, text='男性', width=30, bg='#5DB529')
-        self.men_button.bind("<ButtonRelease-1>", self.send_word)
+        self.men_button.bind("<ButtonRelease-1>", self.speaker_decide)
         self.men_button.pack()
 
         self.haruka_button = tk.Button(master=self, text='はるか(女性)', width=30, bg='#5DB529')
@@ -122,7 +121,6 @@ class Base(tk.Frame):
         print(val)
         volume_val = val
         return volume_val
-        
 
     def say(self):
         print("音声を流す")
@@ -131,7 +129,11 @@ class Base(tk.Frame):
 
     def select_mode():
         print("モードの選択")
-    
+
+    def speaker_decide(self, event):
+        self.speaker = "show"
+        print(self.speaker)
+
     def send_word(self, event):
         print(self.entryBox.get())
 
