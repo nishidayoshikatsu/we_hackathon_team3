@@ -8,7 +8,7 @@ from pydub.playback import play
 import get_talk as getTalk
 
 # wavファイル
-wav_file = "se_maoudamashii_chime12.wav"
+wav_file = "./voice/test.wav"
 
 class Base(tk.Frame):
     def __init__(self, master=None):
@@ -28,15 +28,15 @@ class Base(tk.Frame):
         label.pack()
 
         self.secret_button = tk.Button(master=self, text='会話', width=30, bg='#5DB529')
-        self.secret_button.bind("<ButtonRelease-1>", self.send_word)
+        self.secret_button.bind("<ButtonRelease-1>")
         self.secret_button.pack()
 
         self.siritori_button = tk.Button(master=self, text='しりとり', width=30, bg='#5DB529')
-        self.siritori_button.bind("<ButtonRelease-1>", self.send_word)
+        self.siritori_button.bind("<ButtonRelease-1>")
         self.siritori_button.pack()
 
         self.repeat_button = tk.Button(master=self, text='おうむ返し', width=30, bg='#5DB529')
-        self.repeat_button.bind("<ButtonRelease-1>", self.send_word)
+        self.repeat_button.bind("<ButtonRelease-1>")
         self.repeat_button.pack()
 
         label = tk.Label(master=self, text="人物選択",font=(u'ＭＳ ゴシック', 40,"bold"),bg="green")
@@ -44,27 +44,27 @@ class Base(tk.Frame):
 
 
         self.men_button = tk.Button(master=self, text='男性', width=30, bg='#5DB529')
-        self.men_button.bind("<ButtonRelease-1>", self.send_word)
+        self.men_button.bind("<ButtonRelease-1>")
         self.men_button.pack()
 
         self.haruka_button = tk.Button(master=self, text='はるか(女性)', width=30, bg='#5DB529')
-        self.haruka_button.bind("<ButtonRelease-1>", self.send_word)
+        self.haruka_button.bind("<ButtonRelease-1>")
         self.haruka_button.pack()
 
         self.hikari_button = tk.Button(master=self, text='ひかり(女性)', width=30, bg='#5DB529')
-        self.hikari_button.bind("<ButtonRelease-1>", self.send_word)
+        self.hikari_button.bind("<ButtonRelease-1>")
         self.hikari_button.pack()
 
         self.ken_button = tk.Button(master=self, text='健(男性)', width=30, bg='#5DB529')
-        self.ken_button.bind("<ButtonRelease-1>", self.send_word)
+        self.ken_button.bind("<ButtonRelease-1>")
         self.ken_button.pack()
 
         self.santa_button = tk.Button(master=self, text='サンタさん', width=30, bg='#5DB529')
-        self.santa_button.bind("<ButtonRelease-1>", self.send_word)
+        self.santa_button.bind("<ButtonRelease-1>")
         self.santa_button.pack()
 
         self.bear_button = tk.Button(master=self, text='凶暴なクマ', width=30, bg='#5DB529')
-        self.bear_button.bind("<ButtonRelease-1>", self.send_word)
+        self.bear_button.bind("<ButtonRelease-1>")
         self.bear_button.pack()
 
 
@@ -72,9 +72,11 @@ class Base(tk.Frame):
         self.entryBox = tk.Entry(master=self,width=80)
         self.entryBox.pack()
 
-        # テキストボックスの内容を表示するボタン
+        # テキストボックスの内容を送信するボタン
         self.button1 = tk.Button(master=self, text='確定する', bg='#F0F8FF', fg='#FF4500', width=30)
-        self.button1.bind("<ButtonRelease-1>", self.send_word)
+        self.button1.bind("<ButtonRelease-1>", self.send_word)  # 多分ここが原因
+        # 全然わからないけど、ボタンを生成しするたびにsend_wordメソッドを呼んでるように見える。
+        # ボタンclick時にだけメソッドを呼ぶようにしたい
         self.button1.pack()
 
                  
