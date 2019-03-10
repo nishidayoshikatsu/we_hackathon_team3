@@ -9,7 +9,7 @@ import wave
 import text_to_speech as tts
 
 # wavファイル
-wav_file = ""
+#wav_file = ""
 
 class Base(tk.Frame):
     def __init__(self, master=None):
@@ -126,7 +126,7 @@ class Base(tk.Frame):
 
     def say(self):
         print("音声を流す")
-        sound = AudioSegment.from_file(wav_file,"wav")
+        sound = AudioSegment.from_file(self.wav_file,"wav")
         play(sound)
 
     def select_mode():
@@ -146,7 +146,9 @@ class Base(tk.Frame):
         }
         print(params)
         speech = tts.TextToSpeech(params)
-        speech.text_to_speech()
+        path = speech.text_to_speech()
+        # wavファイル
+        self.wav_file = path
 
 root = tk.Tk()
 app = Base(master=root)

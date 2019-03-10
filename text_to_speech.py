@@ -113,6 +113,8 @@ class TextToSpeech:
         with open("./voice/test" + str(n) + ".wav", 'wb') as f:   # wavファイルの生成
             f.write(r.content)
 
+        return "./voice/test" + str(n) + ".wav"
+
 if __name__ == "__main__":      # このファイルが直接実行されたときに以下を実行
     # 呼び出し例
     params = {
