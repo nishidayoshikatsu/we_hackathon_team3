@@ -4,6 +4,9 @@ import tkinter as tk
 from pydub import AudioSegment
 from pydub.playback import play
 
+# 対話テキスト生成モジュール
+import get_talk as getTalk
+
 # wavファイル
 wav_file = "se_maoudamashii_chime12.wav"
 
@@ -14,9 +17,9 @@ class Base(tk.Frame):
         master.title("色々な人に声を変えられるよ")
         self.pack()
         self.create_widgets()
-        img = tk.PhotoImage(file='./Santa.gif')
+        # img = tk.PhotoImage(file='./Santa.gif')
         # 画像ウィジェットの配置(1行1列)
-        label1 = tk.Label(root, image=img)
+        label1 = tk.Label(root)
         label1.pack()
 
         
@@ -128,22 +131,44 @@ class Base(tk.Frame):
         sound = AudioSegment.from_file(wav_file,"wav")
         play(sound)
 
-    def select_mode():
+    def select_mode(self):
         print("モードの選択")
     
     def send_word(self, event):
         print(self.entryBox.get())
+        self.send_text = self.entryBox.get()
+
+        # params = {
+        #     "text": self.entryBox.get(),     # 200文字以内
+        #     "speaker": "santa",                                         # 話者名
+        #     "emotion": "happiness",                                     # 感情
+        #     "emotion_level": 4,                                         # 感情レベル
+        #     "pitch":  100,                                               # 音の高さ
+        #     "speed": 100,                                                # 音声の速度
+        #     "volume": 100                                              # 音声の大きさ
+        # }
 
         params = {
-            "text": self.entryBox.get(),     # 200文字以内
-            "speaker": "santa",                                         # 話者名
-            "emotion": "happiness",                                     # 感情
-            "emotion_level": 4,                                         # 感情レベル
-            "pitch":  100,                                               # 音の高さ
-            "speed": 100,                                                # 音声の速度
-            "volume": 100                                              # 音声の大きさ
+                'send_text':self.send_text,                                     # 送信メッセージ
+                'nickname':'ヨウスケ',                                          # ニックネーム
+                'nicknameY':'ヨウスケ',                                         # ニックネーム（読み）
+                'sex':'男',                                                     # 性別
+                'bloodtype':'B',                                                # 血液型
+                'birthdateY':'1992',                                            # 誕生日（年）
+                'birthdateM':'7',                                               # 誕生日（月）
+                'birthdateD':'8',                                               # 誕生日（日）
+                'age':'26',                                                     # 年齢
+                'constellations':'蟹座',                                        # 星座
+                'place':'東京',                                                 # 地域
+                'mode':'',                                                      # 対話モード（通常：dialog or しりとり：srtr）
+                't':'kansai'                                                    # キャラクタ（デフォルト：指定なし or 関西弁：kansai or 赤ちゃん：akachan）
         }
         print(params)
+
+        talk = getTalk.GetTalk(params)
+        talk.getTalk()
+
+        
 
 root = tk.Tk()
 app = Base(master=root)
