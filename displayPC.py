@@ -43,27 +43,27 @@ class Base(tk.Frame):
 
 
         self.men_button = tk.Button(master=self, text='男性', width=30, bg='#5DB529')
-        self.men_button.bind("<ButtonRelease-1>", self.speaker_decide)
+        self.men_button.bind("<ButtonRelease-1>", self.speaker1)
         self.men_button.pack()
 
         self.haruka_button = tk.Button(master=self, text='はるか(女性)', width=30, bg='#5DB529')
-        self.haruka_button.bind("<ButtonRelease-1>", self.send_word)
+        self.haruka_button.bind("<ButtonRelease-1>", self.speaker2)
         self.haruka_button.pack()
 
         self.hikari_button = tk.Button(master=self, text='ひかり(女性)', width=30, bg='#5DB529')
-        self.hikari_button.bind("<ButtonRelease-1>", self.send_word)
+        self.hikari_button.bind("<ButtonRelease-1>", self.speaker3)
         self.hikari_button.pack()
 
         self.ken_button = tk.Button(master=self, text='健(男性)', width=30, bg='#5DB529')
-        self.ken_button.bind("<ButtonRelease-1>", self.send_word)
+        self.ken_button.bind("<ButtonRelease-1>", self.speaker4)
         self.ken_button.pack()
 
         self.santa_button = tk.Button(master=self, text='サンタさん', width=30, bg='#5DB529')
-        self.santa_button.bind("<ButtonRelease-1>", self.send_word)
+        self.santa_button.bind("<ButtonRelease-1>", self.speaker5)
         self.santa_button.pack()
 
         self.bear_button = tk.Button(master=self, text='凶暴なクマ', width=30, bg='#5DB529')
-        self.bear_button.bind("<ButtonRelease-1>", self.send_word)
+        self.bear_button.bind("<ButtonRelease-1>", self.speaker6)
         self.bear_button.pack()
 
 
@@ -110,16 +110,19 @@ class Base(tk.Frame):
     def speed_value(self, val):
         print(val)
         speed_val = val
+        self.speed_val = speed_val
         return speed_val
 
     def pitch_value(self, val):
         print(val)
         pitch_val = val
+        self.pitch_val = pitch_val
         return pitch_val
 
     def volume_value(self, val):
         print(val)
         volume_val = val
+        self.volume_val = volume_val
         return volume_val
 
     def say(self):
@@ -130,21 +133,43 @@ class Base(tk.Frame):
     def select_mode():
         print("モードの選択")
 
-    def speaker_decide(self, event):
+    def speaker1(self, event):
         self.speaker = "show"
+        print(self.speaker)
+
+    def speaker2(self, event):
+        self.speaker = "haruka"
+        print(self.speaker)
+
+    def speaker3(self, event):
+        self.speaker = "hikari"
+        print(self.speaker)
+    
+    def speaker4(self, event):
+        self.speaker = "takeru"
+        print(self.speaker)
+
+    def speaker5(self, event):
+        self.speaker = "santa"
+        print(self.speaker)
+
+    def speaker6(self, event):
+        self.speaker = "bear"
         print(self.speaker)
 
     def send_word(self, event):
         print(self.entryBox.get())
+        print("pitch")
+        print(type(int(self.pitch_val)))
 
         params = {
             "text": self.entryBox.get(),     # 200文字以内
-            "speaker": "santa",                                         # 話者名
-            "emotion": "happiness",                                     # 感情
-            "emotion_level": 4,                                         # 感情レベル
-            "pitch":  100,                                               # 音の高さ
-            "speed": 100,                                                # 音声の速度
-            "volume": 100                                              # 音声の大きさ
+            "speaker": self.speaker,                                         # 話者名
+            #"emotion": "happiness",                                     # 感情
+            #"emotion_level": 4,                                         # 感情レベル
+            "pitch": int(self.pitch_val)+50,                                               # 音の高さ
+            "speed": int(self.speed_val)+50,                                                # 音声の速度
+            "volume": int(self.volume_val)+50                                              # 音声の大きさ
         }
         print(params)
         speech = tts.TextToSpeech(params)
