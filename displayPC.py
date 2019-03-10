@@ -77,7 +77,7 @@ class Base(tk.Frame):
         self.button1.pack()
 
         # pitch
-        c = tk.Label(text="テンポ",bg='yellow')
+        c = tk.Label(text="高さ",bg='yellow')
         c.place(x=500, y=440)
         self.pitch = tk.DoubleVar(master=self)
         # self.scale1 = tk.Scale(master=self, variable=self)
