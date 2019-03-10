@@ -1,21 +1,33 @@
+# coding= utf-8
 import tkinter as tk
+# wavファイル再生モジュール
+from pydub import AudioSegment
+from pydub.playback import play
 
-
+# wavファイル
+wav_file = "se_maoudamashii_chime12.wav"
 
 class Base(tk.Frame):
     pitch_value = 0
     speed_value = 0
     volume_value = 0
+
+
+
     def __init__(self, master=None):
         super().__init__(master)
         master.geometry("1200x1000")
         master.title("伝説のあの人とついに会話できるようになりました。")
         self.pack()
         self.create_widgets()
+        img = tk.PhotoImage(file='./Santa.gif')
+        # 画像ウィジェットの配置(1行1列)
+        label1 = tk.Label(root, image=img)
+        label1.pack()
+
         
     def create_widgets(self):
-
-        label = tk.Label(master=self, text="会話モード選択")
+        label = tk.Label(master=self, text="会話モード選択", font=(u'ＭＳ ゴシック', 40,"bold"),bg="red")
         label.pack()
         self.siritori_button = tk.Button(master=self, text='しりとり', width=30, bg='#5DB529')
         self.siritori_button.bind("<ButtonRelease-1>", self.send_word)
@@ -25,11 +37,11 @@ class Base(tk.Frame):
         self.repeat_button.bind("<ButtonRelease-1>", self.send_word)
         self.repeat_button.pack()
 
-        self.seacret_button = tk.Button(master=self, text='シークレット', width=30, bg='#5DB529')
-        self.seacret_button.bind("<ButtonRelease-1>", self.send_word)
-        self.seacret_button.pack()
+        self.secret_button = tk.Button(master=self, text='シークレット', width=30, bg='#5DB529')
+        self.secret_button.bind("<ButtonRelease-1>", self.send_word)
+        self.secret_button.pack()
 
-        label = tk.Label(master=self, text="人物選択")
+        label = tk.Label(master=self, text="人物選択",font=(u'ＭＳ ゴシック', 40,"bold"),bg="green")
         label.pack()
 
 
@@ -59,19 +71,19 @@ class Base(tk.Frame):
 
 
         # テキストボックス
-        self.entryBox = tk.Entry(master=self)
+        self.entryBox = tk.Entry(master=self,width=80)
         self.entryBox.pack()
 
         # テキストボックスの内容を表示するボタン
-        self.button1 = tk.Button(master=self, text='確定する', width=30, bg='#5DB529')
+        self.button1 = tk.Button(master=self, text='確定する', bg='#F0F8FF', fg='#FF4500', width=30)
         self.button1.bind("<ButtonRelease-1>", self.send_word)
         self.button1.pack()
 
                  
 
         # pitch
-        c = tk.Label(text="テンポ")
-        c.place(x=500, y=390)
+        c = tk.Label(text="テンポ",bg='yellow')
+        c.place(x=500, y=440)
         self.pitch = tk.DoubleVar(master=self)
         # self.scale1 = tk.Scale(master=self, variable=self)
         self.scale1 = tk.Scale(master=self,command=self.pitch_value)
@@ -79,22 +91,22 @@ class Base(tk.Frame):
 
 
         # speed
-        a = tk.Label(text='速さ')
-        a.place(x=500, y=480)
+        a = tk.Label(text='速さ',bg='yellow')
+        a.place(x=500, y=540)
         self.speed = tk.DoubleVar(master=self)
         self.scale2 = tk.Scale(master=self,command=self.speed_value)
         self.scale2.pack(anchor=tk.CENTER)
 
         # volume
-        b = tk.Label(text='ボリューム')
-        b.place(x=500, y=580)
+        b = tk.Label(text='ボリューム',bg='yellow')
+        b.place(x=500, y=640)
         self.volume = tk.DoubleVar(master=self)        
         self.scale3 = tk.Scale(master=self,command=self.volume_value)
         self.scale3.pack(anchor=tk.CENTER)
 
 
         # 音声再生ボタン
-        self.hi_there = tk.Button(self)
+        self.hi_there = tk.Button(self,width=80)
         self.hi_there["text"] = "音声再生ボタン"
         self.hi_there["command"] = self.say
         self.hi_there.pack(side="top")
@@ -110,11 +122,15 @@ class Base(tk.Frame):
         print(val)
         volume_val = val
 
+
     def say(self):
         print("音声を流す")
+        sound = AudioSegment.from_file(wav_file,"wav")
+        play(sound)
 
     def select_mode():
         print("モードの選択")
+        prin
     
     def send_word(self, event):
         print(self.entryBox.get())
