@@ -3,32 +3,54 @@ import tkinter as tk
 class Base(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
-        master.geometry("900x720")
+        master.geometry("1200x1000")
         master.title("伝説のあの人とついに会話できるようになりました。")
         self.pack()
         self.create_widgets()
         
     def create_widgets(self):
-       
-        mb = tk.Menubutton(root, text="Subjects", relief=tk.RAISED)
-        mb.grid()
-        mb.menu = tk.Menu(mb, tearoff=0)
-        mb["menu"] = mb.menu
 
-        Var1 = tk.IntVar()
-        Var2 = tk.IntVar()
-        Var3 = tk.IntVar()
-        Var4 = tk.IntVar()
-        Var5 = tk.IntVar()
-        Var6 = tk.IntVar()
+        label = tk.Label(master=self, text="会話モード選択")
+        label.pack()
+        self.siritori_button = tk.Button(master=self, text='しりとり', width=30, bg='#5DB529')
+        self.siritori_button.bind("<ButtonRelease-1>", self.send_word)
+        self.siritori_button.pack()
 
-        mb.menu.add_checkbutton(label="男性", variable=Var1)
-        mb.menu.add_checkbutton(label="はるか(女性)", variable=Var2)
-        mb.menu.add_checkbutton(label="ひかり(女性)", variable=Var3)
-        mb.menu.add_checkbutton(label="健(男性)", variable=Var4)
-        mb.menu.add_checkbutton(label="サンタさん", variable=Var5)
-        mb.menu.add_checkbutton(label="凶暴なクマ", variable=Var6)
-        mb.pack()
+        self.repeat_button = tk.Button(master=self, text='おうむ返し', width=30, bg='#5DB529')
+        self.repeat_button.bind("<ButtonRelease-1>", self.send_word)
+        self.repeat_button.pack()
+
+        self.seacret_button = tk.Button(master=self, text='シークレット', width=30, bg='#5DB529')
+        self.seacret_button.bind("<ButtonRelease-1>", self.send_word)
+        self.seacret_button.pack()
+
+        label = tk.Label(master=self, text="人物選択")
+        label.pack()
+
+
+        self.men_button = tk.Button(master=self, text='男性', width=30, bg='#5DB529')
+        self.men_button.bind("<ButtonRelease-1>", self.send_word)
+        self.men_button.pack()
+
+        self.haruka_button = tk.Button(master=self, text='はるか(女性)', width=30, bg='#5DB529')
+        self.haruka_button.bind("<ButtonRelease-1>", self.send_word)
+        self.haruka_button.pack()
+
+        self.hikari_button = tk.Button(master=self, text='ひかり(女性)', width=30, bg='#5DB529')
+        self.hikari_button.bind("<ButtonRelease-1>", self.send_word)
+        self.hikari_button.pack()
+
+        self.ken_button = tk.Button(master=self, text='健(男性)', width=30, bg='#5DB529')
+        self.ken_button.bind("<ButtonRelease-1>", self.send_word)
+        self.ken_button.pack()
+
+        self.santa_button = tk.Button(master=self, text='サンタさん', width=30, bg='#5DB529')
+        self.santa_button.bind("<ButtonRelease-1>", self.send_word)
+        self.santa_button.pack()
+
+        self.bear_button = tk.Button(master=self, text='凶暴なクマ', width=30, bg='#5DB529')
+        self.bear_button.bind("<ButtonRelease-1>", self.send_word)
+        self.bear_button.pack()
 
 
         # テキストボックス
@@ -36,61 +58,65 @@ class Base(tk.Frame):
         self.entryBox.pack()
 
         # テキストボックスの内容を表示するボタン
-        self.button1 = tk.Button(master=self, text='テキストを送信する', width=30, bg='#5DB529')
+        self.button1 = tk.Button(master=self, text='確定する', width=30, bg='#5DB529')
         self.button1.bind("<ButtonRelease-1>", self.send_word)
         self.button1.pack()
 
                  
-        # ファイル再生ボタン
+
+        # pitch
+        c = tk.Label(text="テンポ")
+        c.place(x=500, y=400)
+        self.pitch = tk.DoubleVar(master=self)
+        self.scale = tk.Scale(master=self, variable=self)
+        self.scale.pack(anchor=tk.CENTER)
+        self.button = tk.Button(master=self, text="Get Scale Value")
+        self.button.pack(anchor=tk.CENTER)
+
+        # speed
+        a = tk.Label(text='速さ')
+        a.place(x=500, y=530)
+        self.speed = tk.DoubleVar(master=self)
+        self.scale = tk.Scale(master=self, variable=self)
+        self.scale.pack(anchor=tk.CENTER)
+        self.button = tk.Button(master=self, text="Get Scale Value")
+        self.button.pack(anchor=tk.CENTER)
+
+        # volume
+        b = tk.Label(text='ボリューム')
+        b.place(x=500, y=660)
+        self.volume = tk.DoubleVar(master=self)        
+        self.scale = tk.Scale(master=self, variable=self)
+        self.scale.pack(anchor=tk.CENTER)
+        self.button = tk.Button(master=self, text="Get Scale Value")
+        self.button.pack(anchor=tk.CENTER)
+
+        # 音声再生ボタン
         self.hi_there = tk.Button(self)
         self.hi_there["text"] = "音声再生ボタン"
-        self.hi_there["command"] = self.say_hi
+        self.hi_there["command"] = self.say
         self.hi_there.pack(side="top")
 
-        c = tk.Label(text="テンポ")
-        c.place(x=100, y=200)
-        # pitch
-        var = tk.DoubleVar()
-        scale = tk.Scale(root, variable=var)
-        scale.pack(anchor=tk.CENTER)
-        button = tk.Button(root, text="Get Scale Value")
-        button.pack(anchor=tk.CENTER)
-        label = tk.Label(root)
-        label.pack(fill = 'x',side = 'left')
-    # speed
-        a = tk.Label(text='速さ')
-        a.place(x=100, y=300)
-        var = tk.DoubleVar()
 
-        scale = tk.Scale(root, variable=var)
-        scale.pack(anchor=tk.CENTER)
-        button = tk.Button(root, text="Get Scale Value")
-        button.pack(anchor=tk.CENTER)
-        label = tk.Label(root)
-        label.pack(fill = 'x', side = 'left')
+    def say(self):
+        print("音声を流す")
 
-        b = tk.Label(text='ボリューム')
-        b.place(x=100, y=400)
-    # volume
-        var = tk.DoubleVar()
-        
-        scale = tk.Scale(root, variable=var)
-        scale.pack(anchor=tk.CENTER)
-        button = tk.Button(root, text="Get Scale Value")
-        button.pack(anchor=tk.CENTER)
-        label = tk.Label(root)
-        label.pack(fill = 'x', side = 'left')
-
-
-        
-    def say_hi(self):
-        print("hi there, everyone!")
+    def select_mode():
+        print("モードの選択")
     
     def send_word(self, event):
         print(self.entryBox.get())
-        self.status = tk.Label(master=self, text="Now processing..",
-        borderwidth=2, relief="groove")
-        self.status.pack(side=tk.BOTTOM, fill=tk.X)
+        print(self.volume.get())
+        params = {
+            "text": self.entryBox.get(),     # 200文字以内
+            "speaker": "santa",                                         # 話者名
+            "emotion": "happiness",                                     # 感情
+            "emotion_level": 4,                                         # 感情レベル
+            "pitch": self.pitch.get(),                                               # 音の高さ
+            "speed": self.speed.get(),                                                # 音声の速度
+            "volume": self.volume.get()                                               # 音声の大きさ
+        }
+        print(params)
 
 root = tk.Tk()
 app = Base(master=root)
