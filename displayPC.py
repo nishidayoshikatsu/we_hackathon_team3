@@ -3,9 +3,10 @@ import tkinter as tk
 # wavファイル再生モジュール
 from pydub import AudioSegment
 from pydub.playback import play
+import wave
 
 # wavファイル
-wav_file = "se_maoudamashii_chime12.wav"
+wav_file = ""
 
 class Base(tk.Frame):
     def __init__(self, master=None):
@@ -14,9 +15,8 @@ class Base(tk.Frame):
         master.title("色々な人に声を変えられるよ")
         self.pack()
         self.create_widgets()
-        img = tk.PhotoImage(file='./Santa.gif')
         # 画像ウィジェットの配置(1行1列)
-        label1 = tk.Label(root, image=img)
+        label1 = tk.Label(root)
         label1.pack()
 
         
